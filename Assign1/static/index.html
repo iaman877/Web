@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auth</title>
+  </head>
+
+  <body>
+    <h1>Sign Up </h1>
+    <form id="reg-form">
+      <fieldset>
+        <legend>Personal Information</legend>
+        <Div> 
+            <label for="username">Full Name</label>
+            <input type="text" autocomplete="off" id="username" placeholder="Username"  />
+        </Div>
+        <Div> 
+            <label for="email">Email</label>
+            <input type="email" autocomplete="off" id="email" placeholder="Enter your Email"  />
+        </Div>
+        <Div> 
+            <label for="pan">PAN</label>
+            <input type="password" autocomplete="off" id="password" placeholder="Password" />
+        </Div>
+        <Div>   
+            Date of Birth: <input type="date" autocomplete="off" id="date" placeholder="DOB" />
+        </Div>
+      </fieldset>
+      <input type="submit" value="Submit Form" />
+    </form>
+    <script>
+        const form = document.getElementById('reg-form')
+        form.addEventListener('submit', registerUser)
+        async function registerUser(event) {
+				event.preventDefault()
+				const username = document.getElementById('username').value
+				const password = document.getElementById('password').value
+                const email = document.getElementById('email').value
+                const  date = document.getElementById('date').value
+
+
+				const result = await fetch('/api/register', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						username,
+						password,
+                        email,
+                        date
+					})
+				}).then((res) => res.json())
+                console.log(result)
+			}
+          
+    </script>
+
+  </body> 
+</html>
